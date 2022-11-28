@@ -2,44 +2,17 @@ function gebi(a) {
     return document.getElementById(a);
 }
 
-function checkTime(i) {
-    if (i < 10) {i = "0" + i};
-    return i;
-} 
-function checkHour(i) {
-    if (i > 12) {
-        return i - 12
-    } return i
-}
-
 function time() {
     let now = new Date();
-    let hour = checkHour(checkTime(now.getHours()));
-    let minute = checkTime(now.getMinutes());
-    gebi("time").innerHTML = hour + ":" + minute;
+    let options = { hour: 'numeric', minute: 'numeric'};
+    gebi("time").innerHTML = now.toLocaleTimeString("en-US", options);
     setTimeout(time, 5000)
 }
 
-function nowDate() {
-    const monthToWord = {
-        0: "January",
-        1: "February",
-        2: "March",
-        3: "April",
-        4: "May",
-        5: "June",
-        6: "July",
-        7: "August",
-        8: "September",
-        9: "October",
-        10: "November",
-        11: "December"
-    }
+function date() {
+    let options = { day: 'numeric', month: 'long', year: 'numeric'};
     let now = new Date();
-    const day = now.getDay();
-    const month = monthToWord[now.getMonth() - 1];
-    const year = now.getFullYear();
-    gebi("date").innerHTML = day + " " + month + " " + year;
+    gebi("date").innerHTML = now.toLocaleDateString("en-US", options);
 }
 
 function weather( town ) {
@@ -70,7 +43,7 @@ function libre() {
 
 function main() {
     time();
-    nowDate();
+    date();
     weather("London");
     libre();
 }
